@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxera Interior — A Cinematic Architectural Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="./luxera-interior-cropped.webp" type="image/webp">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- RESPONSIVE NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <a href="#hero-section" class="logo-link">
+          <img src="./luxera-interior-cropped.webp" alt="Luxera Interior" class="logo-img">
+        </a>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="#hero-section" class="nav-link" data-section="hero">Home</a></li>
+        <li class="nav-item"><a href="#animation-section" class="nav-link" data-section="animation">Experience</a></li>
+        <li class="nav-item"><a href="#philosophy-section" class="nav-link" data-section="philosophy">Vision</a></li>
+        <li class="nav-item"><a href="#gallery-section" class="nav-link" data-section="gallery">Gallery</a></li>
+        <li class="nav-item"><a href="#materials-section" class="nav-link" data-section="materials">Materials</a></li>
+        <li class="nav-item"><a href="#amenities-section" class="nav-link" data-section="amenities">Amenities</a></li>
+        <li class="nav-item"><a href="#contact-section" class="nav-link" data-section="contact">Contact</a></li>
+        <li class="nav-item mobile-music-toggle">
+          <button class="music-toggle bgm-toggle-btn" type="button" aria-pressed="false" title="Toggle background music" aria-label="Toggle background music">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </button>
+        </li>
+        <li class="nav-item mobile-book-now">
+          <a href="#contact-section" class="book-now-btn mobile">Book Now</a>
+        </li>
+      </ul>
+
+      <div class="navbar-controls">
+        <button id="bgm-toggle" class="music-toggle bgm-toggle-btn" type="button" aria-pressed="false" title="Toggle background music" aria-label="Toggle background music">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+        <a href="#contact-section" class="book-now-btn">Book Now</a>
+      </div>
+    </div>
+    <div class="navbar-border"></div>
+  </nav>
+
+  <!-- STATIC HERO SECTION -->
+  <section id="hero-section" class="hero-section">
+    <img id="hero-image" src="interior-room-images/00001.webp" alt="Luxera Interior" class="hero-image">
+    <div class="hero-content">
+      <div class="hero-label"><span>Luxera Interior Collection</span></div>
+      <h1 class="hero-title">
+        <span class="hero-title-line"><span>A Cinematic</span></span>
+        <span class="hero-title-line"><span>Architectural Journey</span></span>
+      </h1>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-text">Scroll to explore</div>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo-container">
+      <img src="luxera-interior-cropped.webp" alt="Luxera Interior" class="loading-logo">
+    </div>
+    <div class="loading-brand">Luxera Interior Collection</div>
+    <div class="loading-title">Loading Experience</div>
+    <div class="loading-bar-track"><div id="loading-bar-fill" class="loading-bar-fill"></div></div>
+    <div id="loading-percent" class="loading-percent">0%</div>
+  </div>
+
+  <!-- CANVAS FOR ANIMATION SEQUENCE -->
+  <canvas id="cinematic-canvas"></canvas>
+  <section id="animation-section">
+    <div id="scroll-container"></div>
+  </section>
+
+  <!-- SECTION LABELS -->
+  <div id="section-labels"></div>
+
+  <!-- LETTERBOX EFFECT -->
+  <div class="letterbox t" id="letterbox-top"></div>
+  <div class="letterbox b" id="letterbox-bottom"></div>
+
+  <div class="corner-info tl"><div class="info-text">Luxera Interior</div></div>
+  <div id="image-credit" class="image-credit">Luxera Interior Collection</div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress-track"><div class="scroll-progress-fill" id="scroll-progress-fill"></div></div>
+
+  <!-- DESIGN PHILOSOPHY SECTION -->
+  <section id="philosophy-section" class="philosophy-section">
+    <div class="philosophy-wrapper">
+      <div class="philosophy-image-container">
+        <img src="interior-room-images/00130.webp" alt="Design Philosophy" class="philosophy-img" loading="lazy">
+      </div>
+      <div class="philosophy-content">
+        <span class="section-tag">Our Vision</span>
+        <h2 class="philosophy-title">Harmonizing Space & Light</h2>
+        <p class="philosophy-text">
+          Every space we craft is an exploration of balance. We believe that true luxury lies not in excess, but in the meticulous refinement of essential elements. By harmonizing natural light, acoustic tranquility, and tactile surfaces, we create environments that elevate the everyday into the extraordinary.
+        </p>
+        <p class="philosophy-text">
+          Our approach strips away the superfluous, leaving only enduring beauty and effortless functionality.
+        </p>
+        <div class="philosophy-signature">
+          <div class="sig-name">Elias Thorne</div>
+          <div class="sig-title">Principal Architect</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="gallery-section" class="gallery-section">
+    <div class="gallery-content">
+      <h2 class="section-title">Architectural Details</h2>
+      <p class="section-subtitle">Discover the refined craftsmanship in every corner</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="interior-room-images/00040.webp" alt="Gallery 1" loading="lazy">
+          <h3>The Arrival Lounge</h3>
+          <p>Sophisticated entry with architectural elegance</p>
+        </div>
+        <div class="gallery-item">
+          <img src="interior-room-images/00090.webp" alt="Gallery 2" loading="lazy">
+          <h3>The Grand Salon</h3>
+          <p>Expansive living spaces flooded with natural light</p>
+        </div>
+        <div class="gallery-item">
+          <img src="interior-room-images/00140.webp" alt="Gallery 3" loading="lazy">
+          <h3>The Signature Penthouse</h3>
+          <p>Premium finishes with panoramic views</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIALS BENTO SECTION -->
+  <section id="materials-section" class="materials-section">
+    <div class="materials-content">
+      <h2 class="section-title">Curated Materials</h2>
+      <p class="section-subtitle">Exquisite finishes defining the atmosphere</p>
+      <div class="bento-grid">
+        <div class="bento-item bento-large">
+          <img src="interior-room-images/00020.webp" alt="Marble Finish" loading="lazy">
+          <div class="bento-overlay">
+            <h3>Honed Calacatta</h3>
+            <p>Sourced from Carrara, Italy. Hand-finished for a soft, tactile surface.</p>
+          </div>
+        </div>
+        <div class="bento-item">
+          <img src="interior-room-images/00060.webp" alt="Wood Finish" loading="lazy">
+          <div class="bento-overlay">
+            <h3>European Oak</h3>
+            <p>Wide-plank flooring with a bespoke wire-brushed texture.</p>
+          </div>
+        </div>
+        <div class="bento-item">
+          <img src="interior-room-images/00110.webp" alt="Brass Finish" loading="lazy">
+          <div class="bento-overlay">
+            <h3>Aged Brass</h3>
+            <p>Custom patinated fixtures offering a warm, timeless glow.</p>
+          </div>
+        </div>
+        <div class="bento-item bento-wide">
+          <img src="interior-room-images/00160.webp" alt="Plaster Finish" loading="lazy">
+          <div class="bento-overlay">
+            <h3>Venetian Plaster</h3>
+            <p>Artisan-applied wall treatments providing depth and subtle movement to every room.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES SECTION -->
+  <section id="amenities-section" class="amenities-section">
+    <div class="amenities-content">
+      <div class="amenities-header">
+        <h2 class="section-title">Uncompromising Comfort</h2>
+        <p class="section-subtitle">State-of-the-art integration for seamless living</p>
+      </div>
+      <div class="accordion-container">
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="accordion-number">01</span>
+            <span class="accordion-title">Intuitive Smart Home Systems</span>
+            <span class="accordion-icon"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Invisible environmental controls, circadian rhythm lighting, and comprehensive media integration, all managed through bespoke wall panels or your personal device.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="accordion-number">02</span>
+            <span class="accordion-title">Acoustic Engineering</span>
+            <span class="accordion-icon"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Multi-layered soundproofing, decoupled structural elements, and acoustic dampening materials ensure absolute tranquility within the residence.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="accordion-number">03</span>
+            <span class="accordion-title">Advanced Air Quality</span>
+            <span class="accordion-icon"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Hospital-grade HEPA filtration paired with continuous fresh air exchange systems and intelligent humidity control.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="accordion-number">04</span>
+            <span class="accordion-title">Bespoke Security</span>
+            <span class="accordion-icon"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Military-grade encryption, biometric access points, and discreet perimeter monitoring offering profound peace of mind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA SECTION -->
+  <section id="final-section" class="final-section">
+    <div class="final-content">
+      <h2>Ready to Experience Luxury?</h2>
+      <p>Schedule your private architectural tour today</p>
+      <a href="#contact-section" class="cta-button">Arrange a Viewing</a>
+      <div class="contact-info">
+        <p>+1 (555) 123-4567</p>
+        <p>hello@luxerainterior.com</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact-section" class="contact-section">
+    <div class="contact-wrapper">
+      <div class="contact-copy">
+        <span class="section-tag">Contact Us</span>
+        <h2>Send a request for a private viewing</h2>
+        <p>Tell us your preferences and we will respond with a tailored design consultation.</p>
+        <div class="contact-details">
+          <p>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>+1 (555) 123-4567</span>
+          </p>
+          <p>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>hello@luxerainterior.com</span>
+          </p>
+        </div>
+      </div>
+      <form id="contact-form" class="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your full name" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Tell us what you're looking for" required></textarea>
+
+        <button type="submit" class="form-button">Send Message</button>
+        <div id="contact-status" class="contact-status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>Luxera Interior Collection © 2026</p>
+      <p>Immersive architectural storytelling for modern spaces</p>
+    </div>
+  </footer>
+
+  <audio id="bgm-audio" src="bgm.mp3" preload="auto" loop></audio>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
