@@ -519,36 +519,240 @@
 
   function initAccordions() {
     const accordions = document.querySelectorAll('.accordion-header');
+    
+    // Helper to open an item
+    function openItem(header, content) {
+      header.setAttribute('aria-expanded', 'true');
+      
+      // Calculate height (ensure it's not 0, fallback to 200 if it is)
+      const height = content.scrollHeight || 200;
+      content.style.maxHeight = height + 'px';
+      content.style.paddingBottom = '32px';
+      
+      // Listen for the end of the transition to set max-height to 'none'
+      // This ensures responsiveness when resizing the window
+      const onTransitionEnd = function(e) {
+        if (e.propertyName === 'max-height' && header.getAttribute('aria-expanded') === 'true') {
+          content.style.maxHeight = 'none';
+        }
+      };
+      
+      content.removeEventListener('transitionend', onTransitionEnd);
+      content.addEventListener('transitionend', onTransitionEnd);
+    }
+    
+    // Helper to close an item
+    function closeItem(header, content) {
+      header.setAttribute('aria-expanded', 'false');
+      
+      // If it is 'none', we must set it to a pixel value first to trigger the transition
+      if (content.style.maxHeight === 'none' || !content.style.maxHeight) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.offsetHeight; // Force reflow
+      }
+      
+      // Animate to 0
+      content.style.maxHeight = '0px';
+      content.style.paddingBottom = '0px';
+    }
+
+    // Initialize accordions: find the one with aria-expanded="true" or default to the first one
+    let hasActive = false;
+    accordions.forEach((acc, index) => {
+      const content = acc.nextElementSibling;
+      const isExpanded = acc.getAttribute('aria-expanded') === 'true';
+      
+      if (isExpanded) {
+        content.style.maxHeight = 'none';
+        content.style.paddingBottom = '32px';
+        hasActive = true;
+      } else {
+        content.style.maxHeight = '0px';
+        content.style.paddingBottom = '0px';
+      }
+    });
+    
+    // If none are open by default, open the first one
+    if (!hasActive && accordions.length > 0) {
+      const firstHeader = accordions[0];
+      const firstContent = firstHeader.nextElementSibling;
+      openItem(firstHeader, firstContent);
+    }
+
     accordions.forEach(acc => {
       acc.addEventListener('click', function() {
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        const content = this.nextElementSibling;
         
-        // Close all others
+        // Close other items
         accordions.forEach(otherAcc => {
           if (otherAcc !== this) {
-            otherAcc.setAttribute('aria-expanded', 'false');
             const otherContent = otherAcc.nextElementSibling;
-            otherContent.style.maxHeight = null;
-            otherContent.style.paddingBottom = '0px';
+            if (otherAcc.getAttribute('aria-expanded') === 'true') {
+              closeItem(otherAcc, otherContent);
+            }
           }
         });
 
-        // Toggle current
-        this.setAttribute('aria-expanded', !isExpanded);
-        const content = this.nextElementSibling;
-        
+        // Toggle current item
         if (!isExpanded) {
-          content.style.maxHeight = content.scrollHeight + "px";
-          content.style.paddingBottom = '32px';
+          openItem(this, content);
         } else {
-          content.style.maxHeight = null;
-          content.style.paddingBottom = '0px';
+          closeItem(this, content);
         }
         
-        // Let ScrollTrigger recalculate
-        setTimeout(() => ScrollTrigger.refresh(), 500);
+        // Let ScrollTrigger recalculate layout immediately and after transition
+        ScrollTrigger.refresh();
+        setTimeout(() => ScrollTrigger.refresh(), 550);
       });
     });
+
+    // Also handle window resize to recalculate scrollHeight if an accordion is in transition or open
+    window.addEventListener('resize', () => {
+      accordions.forEach(acc => {
+        const content = acc.nextElementSibling;
+        if (acc.getAttribute('aria-expanded') === 'true') {
+          // If open and window is resized, keep it responsive
+          content.style.maxHeight = 'none';
+        }
+      });
+      ScrollTrigger.refresh();
+    });
+  }
+
+  function initAtmosphereStudio() {
+    const presetData = {
+      dawn: {
+        title: 'Aurora Dawn',
+        desc: 'Circadian lighting gradually shifts to an invigorating 4500K spectrum to naturally stimulate morning alertness. Motorized solar shades rise to 20% to invite soft dawn rays, while the acoustic shielding is dialed back to 30% to connect you with the outdoor environment.',
+        temp: '4500K',
+        tempBar: 60,
+        lum: '40%',
+        lumBar: 40,
+        acoustic: 'Ambient — 38 dB',
+        acousticBar: 30,
+        shades: 'Open (20%)',
+        shadesBar: 20,
+        filter: 'sepia(0.2) brightness(0.9) contrast(1.05) saturate(1.1)',
+        overlayColor: 'rgba(255, 215, 180, 0.2)'
+      },
+      noon: {
+        title: 'Zenith Noon',
+        desc: 'A vibrant 5500K daylight balance floods the room, maximizing productivity and visual clarity. Motorized solar shades drop to 60% to block high-angle direct solar glare, and acoustic shielding elevates to 85% to maintain a highly-focused environment.',
+        temp: '5500K',
+        tempBar: 90,
+        lum: '100%',
+        lumBar: 100,
+        acoustic: 'Shielded — 26 dB',
+        acousticBar: 85,
+        shades: 'Filtered (60%)',
+        shadesBar: 60,
+        filter: 'sepia(0) brightness(1.1) contrast(1.15) saturate(1.2)',
+        overlayColor: 'rgba(255, 255, 255, 0)'
+      },
+      dusk: {
+        title: 'Crepuscular Dusk',
+        desc: 'Amber lighting tones at 2700K ease the system into transition. The acoustic mask begins a low, rhythmic white noise sequence. Motorized shades fully retract (0%) to present the evening skyline, while soft golden light fills the corners.',
+        temp: '2700K',
+        tempBar: 20,
+        lum: '35%',
+        lumBar: 35,
+        acoustic: 'Masking — 30 dB',
+        acousticBar: 50,
+        shades: 'Open (0%)',
+        shadesBar: 0,
+        filter: 'sepia(0.55) brightness(0.85) contrast(1.05) saturate(1.3) hue-rotate(-10deg)',
+        overlayColor: 'rgba(255, 140, 0, 0.25)'
+      },
+      night: {
+        title: 'Nocturne Rest',
+        desc: 'Deep warm amber tones drop to 1800K, entirely eliminating blue light frequencies to stimulate melatonin synthesis. Motorized blackout shades descend completely (100%), and acoustic shields activate to maximum setting (95%), achieving a near-silent 18 dB sanctuary.',
+        temp: '1800K',
+        tempBar: 5,
+        lum: '8%',
+        lumBar: 8,
+        acoustic: 'Sanctuary — 18 dB',
+        acousticBar: 95,
+        shades: 'Blackout (100%)',
+        shadesBar: 100,
+        filter: 'brightness(0.5) contrast(1.1) saturate(0.65) sepia(0.3) hue-rotate(-20deg)',
+        overlayColor: 'rgba(0, 20, 80, 0.35)'
+      }
+    };
+
+    const buttons = document.querySelectorAll('.preset-btn');
+    const showcaseImg = document.getElementById('studio-showcase-img');
+    const lightOverlay = document.getElementById('studio-light-overlay');
+    
+    // HUD Elements
+    const hudTemp = document.getElementById('hud-temp');
+    const hudTempBar = document.getElementById('hud-temp-bar');
+    const hudLum = document.getElementById('hud-lum');
+    const hudLumBar = document.getElementById('hud-lum-bar');
+    const hudAcoustic = document.getElementById('hud-acoustic');
+    const hudAcousticBar = document.getElementById('hud-acoustic-bar');
+    const hudShades = document.getElementById('hud-shades');
+    const hudShadesBar = document.getElementById('hud-shades-bar');
+    
+    // Text Elements
+    const sceneTitle = document.getElementById('scene-title');
+    const sceneDesc = document.getElementById('scene-desc');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const timeKey = this.getAttribute('data-time');
+        const data = presetData[timeKey];
+        if (!data) return;
+
+        buttons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        if (showcaseImg) showcaseImg.style.filter = data.filter;
+        if (lightOverlay) lightOverlay.style.backgroundColor = data.overlayColor;
+
+        if (hudTemp) hudTemp.textContent = data.temp;
+        if (hudTempBar) gsap.to(hudTempBar, { width: data.tempBar + '%', duration: 0.8, ease: 'power2.out' });
+        
+        if (hudLum) hudLum.textContent = data.lum;
+        if (hudLumBar) gsap.to(hudLumBar, { width: data.lumBar + '%', duration: 0.8, ease: 'power2.out' });
+
+        if (hudAcoustic) hudAcoustic.textContent = data.acoustic;
+        if (hudAcousticBar) gsap.to(hudAcousticBar, { width: data.acousticBar + '%', duration: 0.8, ease: 'power2.out' });
+
+        if (hudShades) hudShades.textContent = data.shades;
+        if (hudShadesBar) gsap.to(hudShadesBar, { width: data.shadesBar + '%', duration: 0.8, ease: 'power2.out' });
+
+        if (sceneTitle && sceneDesc) {
+          gsap.to([sceneTitle, sceneDesc], {
+            opacity: 0,
+            y: 5,
+            duration: 0.25,
+            onComplete: function() {
+              sceneTitle.textContent = data.title;
+              sceneDesc.textContent = data.desc;
+              gsap.to([sceneTitle, sceneDesc], {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: 'power2.out'
+              });
+            }
+          });
+        }
+      });
+    });
+
+    // Set initial values (dawn)
+    if (showcaseImg && presetData.dawn) {
+      showcaseImg.style.filter = presetData.dawn.filter;
+      if (lightOverlay) lightOverlay.style.backgroundColor = presetData.dawn.overlayColor;
+      
+      // Animate initial HUD bar states to make them dynamic on load
+      if (hudTempBar) gsap.to(hudTempBar, { width: presetData.dawn.tempBar + '%', duration: 0.8, ease: 'power2.out' });
+      if (hudLumBar) gsap.to(hudLumBar, { width: presetData.dawn.lumBar + '%', duration: 0.8, ease: 'power2.out' });
+      if (hudAcousticBar) gsap.to(hudAcousticBar, { width: presetData.dawn.acousticBar + '%', duration: 0.8, ease: 'power2.out' });
+      if (hudShadesBar) gsap.to(hudShadesBar, { width: presetData.dawn.shadesBar + '%', duration: 0.8, ease: 'power2.out' });
+    }
   }
 
   function initScrollAnimations() {
@@ -588,6 +792,16 @@
     gsap.fromTo('.accordion-item', { y: 40, opacity: 0 }, {
       scrollTrigger: { trigger: '.accordion-container', start: 'top 85%', toggleActions: 'play none none reverse' },
       y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: 'expo.out', immediateRender: false
+    });
+
+    // Atmosphere Studio Animations
+    gsap.fromTo('.showcase-viewport', { x: -60, opacity: 0 }, {
+      scrollTrigger: { trigger: '#atmosphere-section', start: 'top 80%', toggleActions: 'play none none reverse' },
+      x: 0, opacity: 1, duration: 1.8, ease: 'expo.out', immediateRender: false
+    });
+    gsap.fromTo('.studio-controls', { x: 60, opacity: 0 }, {
+      scrollTrigger: { trigger: '#atmosphere-section', start: 'top 80%', toggleActions: 'play none none reverse' },
+      x: 0, opacity: 1, duration: 1.8, delay: 0.2, ease: 'expo.out', immediateRender: false
     });
 
     gsap.fromTo('.final-content > *', { y: 80, opacity: 0 }, {
@@ -850,6 +1064,7 @@
     renderFrame(0);
     initScrollAnimations();
     initAccordions();
+    initAtmosphereStudio();
     animateHeroText();
 
     canvasElement.classList.add('active');

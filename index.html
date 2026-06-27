@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="./luxera-interior-cropped.webp" type="image/webp">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/style.css?v=2"/>
 </head>
 <body>
 
@@ -34,6 +34,7 @@
         <li class="nav-item"><a href="#gallery-section" class="nav-link" data-section="gallery">Gallery</a></li>
         <li class="nav-item"><a href="#materials-section" class="nav-link" data-section="materials">Materials</a></li>
         <li class="nav-item"><a href="#amenities-section" class="nav-link" data-section="amenities">Amenities</a></li>
+        <li class="nav-item"><a href="#atmosphere-section" class="nav-link" data-section="atmosphere">Studio</a></li>
         <li class="nav-item"><a href="#contact-section" class="nav-link" data-section="contact">Contact</a></li>
         <li class="nav-item mobile-music-toggle">
           <button class="music-toggle bgm-toggle-btn" type="button" aria-pressed="false" title="Toggle background music" aria-label="Toggle background music">
@@ -204,12 +205,12 @@
       </div>
       <div class="accordion-container">
         <div class="accordion-item">
-          <button class="accordion-header" aria-expanded="false">
+          <button class="accordion-header" aria-expanded="true">
             <span class="accordion-number">01</span>
             <span class="accordion-title">Intuitive Smart Home Systems</span>
             <span class="accordion-icon"></span>
           </button>
-          <div class="accordion-content">
+          <div class="accordion-content" style="max-height: none; padding-bottom: 32px;">
             <p>Invisible environmental controls, circadian rhythm lighting, and comprehensive media integration, all managed through bespoke wall panels or your personal device.</p>
           </div>
         </div>
@@ -241,6 +242,77 @@
           </button>
           <div class="accordion-content">
             <p>Military-grade encryption, biometric access points, and discreet perimeter monitoring offering profound peace of mind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- ATMOSPHERE SIMULATOR SECTION -->
+  <section id="atmosphere-section" class="atmosphere-section">
+    <div class="atmosphere-wrapper">
+      <div class="atmosphere-header">
+        <span class="section-tag">Circadian Control</span>
+        <h2 class="section-title">Atmosphere Studio</h2>
+        <p class="section-subtitle">Simulate the natural cycle of light & sound in Luxera spaces</p>
+      </div>
+
+      <div class="studio-container">
+        <!-- Interactive Showcase Screen -->
+        <div class="showcase-viewport">
+          <img src="interior-room-images/00090.webp" alt="Luxera Living Space" class="showcase-img" id="studio-showcase-img">
+          <div class="showcase-light-overlay" id="studio-light-overlay"></div>
+          
+          <!-- Sleek HUD Overlay -->
+          <div class="hud-dashboard">
+            <div class="hud-item">
+              <span class="hud-label">Circadian Light</span>
+              <span class="hud-value" id="hud-temp">4500K</span>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-temp-bar" style="width: 60%"></div></div>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">Luminosity</span>
+              <span class="hud-value" id="hud-lum">40%</span>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-lum-bar" style="width: 40%"></div></div>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">Acoustic Shield</span>
+              <span class="hud-value" id="hud-acoustic">Ambient — 38 dB</span>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-acoustic-bar" style="width: 30%"></div></div>
+            </div>
+            <div class="hud-item">
+              <span class="hud-label">Motorized Shades</span>
+              <span class="hud-value" id="hud-shades">Open (20%)</span>
+              <div class="hud-bar-track"><div class="hud-bar-fill" id="hud-shades-bar" style="width: 20%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Side -->
+        <div class="studio-controls">
+          <h3 class="controls-title">Circadian Presets</h3>
+          <p class="controls-desc">Select a time phase below to preview the ambient adjustments throughout the day.</p>
+          
+          <div class="preset-buttons">
+            <button class="preset-btn active" data-time="dawn">
+              <span class="preset-time">07:00</span>
+              <span class="preset-name">Aurora Dawn</span>
+            </button>
+            <button class="preset-btn" data-time="noon">
+              <span class="preset-time">13:00</span>
+              <span class="preset-name">Zenith Noon</span>
+            </button>
+            <button class="preset-btn" data-time="dusk">
+              <span class="preset-time">19:00</span>
+              <span class="preset-name">Crepuscular Dusk</span>
+            </button>
+            <button class="preset-btn" data-time="night">
+              <span class="preset-time">23:00</span>
+              <span class="preset-name">Nocturne Rest</span>
+            </button>
+          </div>
+
+          <div class="scene-description">
+            <h4 id="scene-title">Aurora Dawn</h4>
+            <p id="scene-desc">Circadian lighting gradually shifts to an invigorating 4500K spectrum to naturally stimulate morning alertness. Motorized solar shades rise to 20% to invite soft dawn rays, while the acoustic shielding is dialed back to 30% to connect you with the outdoor environment.</p>
           </div>
         </div>
       </div>
@@ -311,6 +383,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>
