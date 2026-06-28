@@ -428,7 +428,8 @@ body {
 .gallery-section,
 .final-section,
 .contact-section,
-.site-footer {
+.site-footer,
+.site-copyright {
   position: relative;
   z-index: 5;
 }
@@ -1173,17 +1174,35 @@ body {
    =========================== */
 .site-footer {
   background: #020202;
-  padding: 40px 24px 52px;
+  padding: 48px 24px;
   text-align: center;
-  color: rgba(255,255,255,0.5);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255, 255, 255, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-.site-footer p {
+.site-footer .footer-tagline {
   font-family: 'Cinzel', serif;
-  margin: 8px 0;
+  margin: 0;
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
+}
+
+/* ===========================
+   COPYRIGHTS SECTION
+   =========================== */
+.site-copyright {
+  background: #000000;
+  padding: 24px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+.site-copyright p {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  margin: 0;
 }
 
 /* ===========================
@@ -1677,4 +1696,64 @@ body {
   .preset-buttons {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===========================
+   PREMIUM LIGHT THEME SYSTEM
+   =========================== */
+.light-theme {
+  background: #fbfaf7 !important; /* Premium Alabaster / Chalk Warm White */
+  color: #1a1a1a !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Philosophy Section overrides */
+.philosophy-section.light-theme .philosophy-title {
+  color: #111111 !important;
+}
+.philosophy-section.light-theme .philosophy-text {
+  color: #333333 !important;
+}
+.philosophy-section.light-theme .section-tag {
+  color: #8c6f2d !important;
+}
+.philosophy-section.light-theme .philosophy-signature {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.philosophy-section.light-theme .sig-name {
+  color: #8c6f2d !important;
+}
+.philosophy-section.light-theme .sig-title {
+  color: #555555 !important;
+}
+
+/* Materials Bento Section overrides */
+.materials-section.light-theme .section-title {
+  color: #111111 !important;
+}
+.materials-section.light-theme .section-subtitle {
+  color: #8c6f2d !important;
+}
+.materials-section.light-theme .bento-item {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.03);
+}
+.materials-section.light-theme .bento-item:hover {
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.08);
+}
+
+/* Final CTA Section overrides */
+.final-section.light-theme h2 {
+  color: #111111 !important;
+}
+.final-section.light-theme p {
+  color: #8c6f2d !important;
+}
+.final-section.light-theme .contact-info {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+.final-section.light-theme .contact-info p {
+  color: #444444 !important;
 }
